@@ -16,7 +16,7 @@ from sqlalchemy import create_engine, func
 import datetime as dt
 from datetime import date
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template 
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -158,8 +158,18 @@ class Institution(db.Model):
 #################################################
 @app.route("/")
 def index():
+    return render_template("index.html")
+#    ''' This function runs when the browser loads the index route (i.e., the "home page"). 
+#        Note that the html file must be located in a folder called templates. '''
 
-#This is the base route that returns api docs 
+#     webpage = render_template("index.html")
+#     return webpage
+
+
+@app.route("/docs")
+def docs():
+
+#This is the route that returns api docs 
 
     return (f"<strong>The higher ed app has the following routes:</strong><br/>"
             f"<hr>"
