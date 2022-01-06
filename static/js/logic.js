@@ -2,45 +2,51 @@
 
 //////// Create the markers for each institution and call createMap function to create the map
 // Query url to pull our institution data
-// let queryUrl = "http://127.0.0.1:5000/api/v1.0/institutions"
+let queryUrl = "/api/v1.0/institutions"
 
-// d3.json(queryUrl).then(createMarkers)
+d3.json(queryUrl).then(createMarkers)
 
-// function createMarkers(data) {
-//     // Array to store school markers
-//     let schoolMarkers = [];
+function createMarkers(data) {
+    console.log('creating markers')
+    // Array to store school markers
+    let schoolMarkers = [];
     
-//     // Array of institutions in the data
-//     let institutions = data.institutions;
-    
-//     // Loop through the institutions array and store a marker for each school
-//     institutions.forEach(school => {
-//         let lat = school.lat;
-//         let lon = school.lon;
-        
-//         let marker = L.marker([lat, lon], {
-//             title: school.institution
-//         });
-//         schoolMarkers.push(marker);
-//     });
+    // Array of institutions in the data
+    let institutions = data.institutions;
 
-//     createMap(L.layerGroup(schoolMarkers));
-// }
+    // Loop through the institutions array and store a marker for each school
+    institutions.forEach(school => {
+        if (school.state === "IL") {
+            let lat = school.lat;
+            let lon = school.lon;
+            
+            let marker = L.marker([lat, lon], {
+                title: school.institution
+            });
 
-//////// Create the map
-function createMap() {
-    console.log("createMap running")
-    let map = L.map("map", {
-        center: [42.81, -107.09],
-        zoom: 4,
+            marker.bindPopup(`${school.institution} <br>  Enrollment: ${school.total_enrollment} students`);
+            schoolMarkers.push(marker);
+        }
     });
 
-    L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-        attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-        maxZoom: 18,
-        id: "light-v10",
-        accessToken: API_KEY
-    }).addTo(map);
+    // Create the map passing in the schoolMarkers as a layergroup
+    createMap(L.layerGroup(schoolMarkers));
 }
 
-createMap();
+//////// Create the map
+function createMap(schoolsLayer) {
+    console.log("createMap running")
+
+    let baseMap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+        maxZoom: 18,
+        id: "outdoors-v11",
+        accessToken: API_KEY
+    });
+
+    let map = L.map("map", {
+        center: [40.6331, -89.3985],
+        zoom: 6,
+        layers: [baseMap, schoolsLayer]
+    });
+}
