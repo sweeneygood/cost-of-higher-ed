@@ -2,7 +2,7 @@
 
 //////// Create the markers for each institution and call createMap function to create the map
 // Query url to pull our institution data
-let queryUrl = "/api/v1.0/institutions"
+let queryUrl = "/api/v1.0/institutions";
 
 
 function onClick(event) {
