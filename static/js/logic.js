@@ -6,8 +6,9 @@ let queryUrl = "/api/v1.0/institutions"
 
 
 function onClick(event) {
-    console.log("Total men at school:", event.target.options.data.total_men);
-    console.log("Total women at school:", event.target.options.data.total_women);
+    buildBarPlots(event.target.options.bar_data);
+    //console.log("Financial Aid:", event.target.options.pie_data.total_men);
+    //console.log("Tuition Prices:", event.target.options.bar_data.instate_tuition_fees);
 }
 
 
@@ -29,10 +30,16 @@ function createMarkers(data) {
             
             let marker = L.marker([lat, lon], {
                 title: school.institution,
-                data: {
+                pie_data: {
                     total_men: school.total_men,
                     total_women: school.total_women
+                },
+                bar_data: {
+                    instate_tuition_fees: school.instate_tuition_fees,
+                    pell_grant: school.avg_amount_pell_grants_first_time_full_time_undergrad,
+                    other_grant: school.avg_amount_other_grant_aid_first_time_full_time_undergrad
                 }
+
             }).on("click", onClick);
 
             marker.bindPopup(`${school.institution} <br>  Enrollment: ${school.total_enrollment} students`);
