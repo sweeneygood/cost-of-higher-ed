@@ -173,7 +173,6 @@ class Institution(db.Model):
 def index():
     return render_template("index.html")
 
-
 #################################################
 # /docs route
 #  This function provides an easy way to view the API info 

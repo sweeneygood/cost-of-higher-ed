@@ -1,0 +1,14 @@
+Werkzeug @ file:///home/ktietz/src/ci/werkzeug_1611932622770/work
+SQLAlchemy @ file:///opt/concourse/worker/volumes/live/31df50e1-4e8b-40a3-6d21-5c6d01ae48e8/volume/sqlalchemy_1618089538006/work
+click @ file:///home/linux1/recipes/ci/click_1610990599742/work
+Flask @ file:///home/ktietz/src/ci/flask_1611932660458/work
+Flask-Migrate==3.1.0
+Flask-PyMongo==2.3.0
+Flask-SQLAlchemy==2.5.1
+gunicorn==20.1.0
+itsdangerous @ file:///home/ktietz/src/ci/itsdangerous_1611932585308/work
+Jinja2 @ file:///tmp/build/80754af9/jinja2_1612213139570/work
+MarkupSafe @ file:///opt/concourse/worker/volumes/live/cb778296-98db-45ad-411e-6f726e102dc3/volume/markupsafe_1594371638608/work
+psycopg2 @ file:///opt/concourse/worker/volumes/live/c8a4b965-959f-4e6c-7792-4aa881d63c8d/volume/psycopg2_1594305121341/work
+psycopg2-binary==2.9.2
+
