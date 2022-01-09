@@ -20,7 +20,6 @@ from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 
-
 #################################################
 # Create a flask app
 #################################################
@@ -32,9 +31,17 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 # Effectively disables page caching
 # Setup DB connection to postgreSQL 
 #################################################
 
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:bootcamp@localhost:5432/higher_ed_db"
-db = SQLAlchemy(app)
+ENV = 'dev'
+
+if ENV == 'dev':
+    app.config['DEBUG'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:bootcamp@localhost:5432/higher_ed_db"
+    db = SQLAlchemy(app)
+else:
+    app.config['DEBUG'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ywewotlgffihpu:8f23e531322c5d25a58a53839cd39cfcf67b45aabdf906a636d4ec5c67bbdff4@ec2-34-203-255-149.compute-1.amazonaws.com:5432/d4rrfe54vo21bq"
+    #  "postgres://ywewotlgffihpu:8f23e531322c5d25a58a53839cd39cfcf67b45aabdf906a636d4ec5c67bbdff4@ec2-34-203-255-149.compute-1.amazonaws.com:5432/d4rrfe54vo21bq"
+    db = SQLAlchemy(app)
 
 
 class Institution1(db.Model):
@@ -161,9 +168,6 @@ def index():
     return render_template("index.html")
 #    ''' This function runs when the browser loads the index route (i.e., the "home page"). 
 #        Note that the html file must be located in a folder called templates. '''
-
-#     webpage = render_template("index.html")
-#     return webpage
 
 
 @app.route("/docs")
