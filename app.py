@@ -6,19 +6,12 @@
 #      https://stackabuse.com/using-sqlalchemy-with-flask-and-postgresql/ 
 
 # Before running this flask server, make sure the following is installed in your environment first
-#       $ pip install psycopg2-binary
-#       $ pip install flask-sqlalchemy
+#        pip install psycopg2-binary
+#        pip install flask-sqlalchemy
 
-import numpy as np
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
-import datetime as dt
-from datetime import date
 
-from flask import Flask, jsonify, render_template 
+from flask import Flask, render_template 
 from flask_sqlalchemy import SQLAlchemy
-
 
 
 #################################################
@@ -32,9 +25,21 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 # Effectively disables page caching
 # Setup DB connection to postgreSQL 
 #################################################
 
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:bootcamp@localhost:5432/higher_ed_db"
-db = SQLAlchemy(app)
+ENV = 'dev'
+
+if ENV == 'dev':
+    app.config['DEBUG'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:bootcamp@localhost:5432/higher_ed_db"
+    db = SQLAlchemy(app)
+else:
+    app.config['DEBUG'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ywewotlgffihpu:8f23e531322c5d25a58a53839cd39cfcf67b45aabdf906a636d4ec5c67bbdff4@ec2-34-203-255-149.compute-1.amazonaws.com:5432/d4rrfe54vo21bq"
+    db = SQLAlchemy(app)
+
+
+#################################################
+# Define classes for the Institution1 and Institution models
+#################################################
 
 
 class Institution1(db.Model):
@@ -156,14 +161,23 @@ class Institution(db.Model):
 #################################################
 # Define routes
 #################################################
+
+#################################################
+# / route
+#  This function runs when the browser loads the index route (i.e., the "home page")
+#  Note that the html file must be located in a folder called templates.
+#################################################
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
-#    ''' This function runs when the browser loads the index route (i.e., the "home page"). 
-#        Note that the html file must be located in a folder called templates. '''
 
-#     webpage = render_template("index.html")
-#     return webpage
+
+#################################################
+# /docs route
+#  This function provides an easy way to view the API info 
+#################################################
 
 
 @app.route("/docs")
@@ -173,12 +187,15 @@ def docs():
 
     return (f"<strong>The higher ed app has the following routes:</strong><br/>"
             f"<hr>"
-            f"/api/v1.0/institution1  - this is for testing only - it will be removed before project submission<br/>"
-            f"/api/v1.0/institutions<br/>"
-            f"/api/v1.0/institutions/id - not working, may not be needed <br/>"
-            f"/api/v1.0/institutions/lat/lon - not working, may not be needed <br/>"
+            f"/api/v1.0/institution1 - returns basic institution data<br/>"
+            f"/api/v1.0/institutions - rerurns all institutions in US<br/>"
             f"<hr>")
-            
+
+#################################################
+# /api/v1.0/institution1 route
+#  This route returns a subset of institution data
+#################################################
+
 
 @app.route("/api/v1.0/institution1")
 def institution1():
@@ -200,6 +217,11 @@ def institution1():
 
     return {"count": len(results), "institutions": results}
 
+
+#################################################
+# /api/v1.0/institutions route
+#  This route returns all of the US institution data
+#################################################
 
 @app.route("/api/v1.0/institutions")
 def institutions():
@@ -251,13 +273,6 @@ def institutions():
         } for school in schools]
 
     return {"count": len(results), "institutions": results}
-
-
-# @app.route("/api/v1.0/institutions/<id>")
-# def institutions():
-# #This route returns all institution data for a unit_id 
-
-#     return jsonify('institutions/<id>')
 
 
 #################################################
