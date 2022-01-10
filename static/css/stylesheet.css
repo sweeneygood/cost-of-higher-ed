@@ -1,13 +1,59 @@
+body {
+    background-color: #4e2a84;
+}
+
 h1 {
     font-size: 50px;
-    text-align: left;
-    background-color: lavenderblush;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: white;
+    color: #4e2a84;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2 {
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h3 {
+    font-size: 17px;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.btn-primary {
+    font-size: 20px;
+    text-align: center;
+    background-color: #836eaa;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.btn-primary:hover {
+    font-size: 20px;
+    text-align: center;
+    background-color: #836eaa;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
 }
 
 #map {
-    position: relative;
-    height: 300px;
+    position: right;
+    height: 800px;
+    width: 100%;
+}
+
+#pie {
+    position: center;
+    height: 400px;
+    width: 100%;
+}
+
+#bar {
+    position: center;
+    height: 400px;
     width: 100%;
 }
