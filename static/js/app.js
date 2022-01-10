@@ -6,7 +6,7 @@ function buildBarPlots(data) {
   console.log(data);
 
   // Bar Chart
-  var colors = ['#3baf65']
+  var colors = ['#d7beeb', '#ac7bd4', '#7b02de']
   var traceBar = {
     type: "bar",
     x: ['In-State Tuition', 'Pell Grant Tuition', 'Other Grant Tuition'],
