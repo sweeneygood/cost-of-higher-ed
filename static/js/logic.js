@@ -1,18 +1,30 @@
 
+function InitDashboard(){
+    let pie_data = {
+        total_men: 0,
+        total_women: 0
+    }
+    let bar_data = {
+        instate_tuition_fees: 0,
+        pell_grant: 0,
+        other_grant: 0
+    }
 
-//////// Create the markers for each institution and call createMap function to create the map
-// Query url to pull our institution data
-let queryUrl = "/api/v1.0/institutions"
+    //Draw the Map
+    let queryUrl = "/api/v1.0/institutions"
+    d3.json(queryUrl).then(createMarkers);
 
+    buildBarPlots(bar_data); 
+    buildPiePlots(pie_data);
+}
 
 function onClick(event) {
     buildBarPlots(event.target.options.bar_data);
+    updatePiePlots(event.target.options.pie_data);
     //console.log("Financial Aid:", event.target.options.pie_data.total_men);
     //console.log("Tuition Prices:", event.target.options.bar_data.instate_tuition_fees);
 }
 
-
-d3.json(queryUrl).then(createMarkers)
 
 function createMarkers(data) {
     console.log('creating markers');
@@ -68,3 +80,8 @@ function createMap(schoolsLayer) {
         layers: [baseMap, schoolsLayer]
     });
 }
+
+InitDashboard();
+
+//////// Create the markers for each institution and call createMap function to create the map
+// Query url to pull our institution data
