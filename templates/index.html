@@ -16,17 +16,20 @@
     <!-- Plotly JS -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+    <!-- Pie Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/stylesheet.css">
 
 </head>
 
 <body>
     <div class="container"></div>
-            <h1>COST OF HIGHER EDUCATION IN ILLINOIS</h1>
-            <h2>Click on a marker to see more the number of students enrolled, financial aid v tuition prices, & demographics of each school!</h2>
-            <h3>Northwestern Data Science Bootcamp Project 2 by Anne Good, Matt Godfrey, Mariano Rivera, & Grace Zafar</h3>
-            <p><a class="btn btn-primary btn-lg btn-block" href="/" role="button">Reset Map</a></p>
-        </div>
+    <h1>COST OF HIGHER EDUCATION IN ILLINOIS</h1>
+    <h2>Click on a marker to see more the number of students enrolled, financial aid v tuition prices, & demographics of
+        each school!</h2>
+    <h3>Northwestern Data Science Bootcamp Project 2 by Anne Good, Matt Godfrey, Mariano Rivera, & Grace Zafar</h3>
+    <p><a class="btn btn-primary btn-lg btn-block" href="/" role="button">Reset Map</a></p>
+    </div>
     </div>
 
     <div class="container-fluid">
@@ -39,36 +42,39 @@
                 <div class="row">
                     <div class="col-3 col-md-12">
                         <!-- insert demographic info pie chart.js here  -->
-                        <div id="pie"></div>
+                        <div>
+                            <canvas id="pie">
+                            </canvas>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-md-12">
-                        <!-- insert cost plotly here  -->
-                        <!-- rename files to match -->
-                        <div id="bar"></div>
-                        <script src="static/js/plots.js"></script>
+                    <div class="row">
+                        <div class="col-3 col-md-12">
+                            <!-- insert cost plotly here  -->
+                            <!-- rename files to match -->
+                            <div id="bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
 
-    <!-- D3 JavaScript -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!-- D3 JavaScript -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
 
-    <!-- Mapbox API key -->
-    <script type="text/javascript" src="static/js/config.js"></script>
+        <!-- Mapbox API key -->
+        <script type="text/javascript" src="static/js/config.js"></script>
 
-    <!-- Our Project 2 Javascript -->
-    <script src="static/js/app.js"></script>
-    <script src="static/js/logic.js"></script>
+        <!-- Our Project 2 Javascript -->
+        <script src="static/js/app.js"></script>
+        <script src="static/js/plots.js"></script>
+        <script src="static/js/logic.js"></script>
+
 
 </body>
 
