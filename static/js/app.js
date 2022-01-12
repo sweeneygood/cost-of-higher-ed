@@ -4,7 +4,7 @@ function buildBarPlots(data) {
   var colors = ['#d7beeb', '#ac7bd4', '#7b02de']
   var traceBar = {
     type: "bar",
-    x: ['In-State Tuition', 'Pell Grant Tuition', 'Other Grant Tuition'],
+    x: ['In-State Tuition', 'Avg Pell Grant', 'Avg Other Grant'],
     y: [data.instate_tuition_fees, data.pell_grant, data.other_grant],
     mode: 'markers',
     marker: {
@@ -37,7 +37,7 @@ function updateBarPlots(data) {
   var colors = ['#d7beeb', '#ac7bd4', '#7b02de']
   var traceBar = {
     type: "bar",
-    x: ['In-State Tuition', 'Pell Grant Tuition', 'Other Grant Tuition'],
+    x: ['In-State Tuition', 'Avg Pell Grant', 'Avg Other Grant'],
     y: [data.instate_tuition_fees, data.pell_grant, data.other_grant],
     mode: 'markers',
     marker: {

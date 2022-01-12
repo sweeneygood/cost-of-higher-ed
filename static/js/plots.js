@@ -4,8 +4,8 @@ function buildPiePlots(pie_data) {
     // Define the data
     const data = {
         labels: [
-            'Total Men',
-            'Total Women'
+            'Total Men (example)',
+            'Total Women (example)'
         ],
         datasets: [{
             label: 'Gender',
