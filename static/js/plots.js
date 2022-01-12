@@ -1,7 +1,7 @@
-console.log("plots.js")
-
+// Build the pie chart upon initialization
 function buildPiePlots(pie_data) {
 
+    // Define the data
     const data = {
         labels: [
             'Total Men',
@@ -21,23 +21,21 @@ function buildPiePlots(pie_data) {
         type: 'pie',
         data: data,
     };
-    
-    // if (pie instanceof Chart){
-    //     pie.destroy();
-    //     const pie = new Chart(
-    //         document.getElementById('pie'),
-    //         config
-    //     );}
-        
+
+    // Render the pie chart
     const pie = new Chart(
         document.getElementById('pie'),
         config
     );
-
 }
 
+// Update the pie chart on marker clicks
 function updatePiePlots(pie_data) {
-Chart.getChart("pie").destroy();
+
+    // Erase the exisitng pue chart
+    Chart.getChart("pie").destroy();
+
+    // Define the new data
     const data = {
         labels: [
             'Total Men',
@@ -57,17 +55,10 @@ Chart.getChart("pie").destroy();
         type: 'pie',
         data: data,
     };
-    
-    // if (pie instanceof Chart){
-    //     pie.destroy();
-    //     const pie = new Chart(
-    //         document.getElementById('pie'),
-    //         config
-    //     );}
-        
+
+    // Render the pie chart
     const pie = new Chart(
         document.getElementById('pie'),
         config
     );
-
 }

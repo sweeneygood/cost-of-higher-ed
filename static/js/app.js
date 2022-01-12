@@ -1,11 +1,6 @@
-//function startup()
-
-// Charts
-console.log("app.js started");
+// Build the bar plot upon page initialization
 function buildBarPlots(data) {
-  console.log(data);
-
-  // Bar Chart
+  // Define trace data
   var colors = ['#d7beeb', '#ac7bd4', '#7b02de']
   var traceBar = {
     type: "bar",
@@ -20,16 +15,50 @@ function buildBarPlots(data) {
   var Bardata = [traceBar];
 
   var Barlayout = {
-    title: `<span style='font-size:1em; color:#1d221f'><b>Financial Aid v Tuition Prices<b></span>`,
-    xaxis: { autorange: true, title: 'Tuition Prices' },
-    yaxis: { autorange: true, title: 'Financial Aid' },
-    width: 400,
-    height: 400
+    title: `<span style='font-size:1em; color:#1d221f'><b>Example<b></span>`,
+    xaxis: {
+      autorange: true,
+      tickangle: 25
+    },
+    yaxis: {
+      autorange: true,
+      title: 'Dollars'
+    },
   };
 
+  // Render the bar plot
   Plotly.newPlot("bar", Bardata, Barlayout);
-
-//}).catch (error => console.log(error));
 }
 
-//buildPlots(147767);
+// Update the bar plot on marker clicks
+function updateBarPlots(data) {
+
+  // Define trace data
+  var colors = ['#d7beeb', '#ac7bd4', '#7b02de']
+  var traceBar = {
+    type: "bar",
+    x: ['In-State Tuition', 'Pell Grant Tuition', 'Other Grant Tuition'],
+    y: [data.instate_tuition_fees, data.pell_grant, data.other_grant],
+    mode: 'markers',
+    marker: {
+      color: colors
+    }
+  };
+
+  var Bardata = [traceBar];
+
+  var Barlayout = {
+    title: `<span style='font-size:1em; color:#1d221f'><b>${data.institution}<b></span>`,
+    xaxis: {
+      autorange: true,
+      tickangle: 25
+    },
+    yaxis: {
+      autorange: true,
+      title: 'Dollars'
+    },
+  };
+
+  // Render the bar plot
+  Plotly.newPlot("bar", Bardata, Barlayout);
+}

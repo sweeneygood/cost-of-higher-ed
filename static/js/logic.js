@@ -1,36 +1,35 @@
-
-function InitDashboard(){
+// Function to initialize the webpage
+function InitDashboard() {
     let pie_data = {
-        total_men: 0,
-        total_women: 0
+        total_men: 1,
+        total_women: 1
     }
     let bar_data = {
-        instate_tuition_fees: 0,
-        pell_grant: 0,
-        other_grant: 0
+        instate_tuition_fees: 20000,
+        pell_grant: 7000,
+        other_grant: 9500
     }
 
-    //Draw the Map
+    // Draw the map and initial example plots
     let queryUrl = "/api/v1.0/institutions"
     d3.json(queryUrl).then(createMarkers);
 
-    buildBarPlots(bar_data); 
+    buildBarPlots(bar_data);
     buildPiePlots(pie_data);
 }
 
+// Event handler to run on marker clicks
 function onClick(event) {
-    buildBarPlots(event.target.options.bar_data);
+    updateBarPlots(event.target.options.bar_data);
     updatePiePlots(event.target.options.pie_data);
-    //console.log("Financial Aid:", event.target.options.pie_data.total_men);
-    //console.log("Tuition Prices:", event.target.options.bar_data.instate_tuition_fees);
 }
 
-
+// Create the markers from the institution data
 function createMarkers(data) {
-    console.log('creating markers');
+
     // Array to store school markers
     let schoolMarkers = [];
-    
+
     // Array of institutions in the data
     let institutions = data.institutions;
 
@@ -39,7 +38,7 @@ function createMarkers(data) {
         if (school.state === "IL") {
             let lat = school.lat;
             let lon = school.lon;
-            
+
             let marker = L.marker([lat, lon], {
                 title: school.institution,
                 pie_data: {
@@ -47,12 +46,13 @@ function createMarkers(data) {
                     total_women: school.total_women
                 },
                 bar_data: {
+                    institution: school.institution,
                     instate_tuition_fees: school.instate_tuition_fees,
                     pell_grant: school.avg_amount_pell_grants_first_time_full_time_undergrad,
                     other_grant: school.avg_amount_other_grant_aid_first_time_full_time_undergrad
                 }
 
-            }).on("click", onClick);
+            }).on("click", onClick); //Run event handler on marker clicks
 
             marker.bindPopup(`${school.institution} <br>  Enrollment: ${school.total_enrollment} students`);
             schoolMarkers.push(marker);
@@ -63,10 +63,10 @@ function createMarkers(data) {
     createMap(L.layerGroup(schoolMarkers));
 }
 
-//////// Create the map
+// Create the map
 function createMap(schoolsLayer) {
-    console.log("createMap running")
 
+    // Base layer of map
     let baseMap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
         maxZoom: 18,
@@ -74,14 +74,12 @@ function createMap(schoolsLayer) {
         accessToken: API_KEY
     });
 
+    // Render the map with the base and marker layers
     let map = L.map("map", {
-        center: [40.6331, -89.3985],
-        zoom: 6,
+        center: [40, -89.3985],
+        zoom: 7,
         layers: [baseMap, schoolsLayer]
     });
 }
 
 InitDashboard();
-
-//////// Create the markers for each institution and call createMap function to create the map
-// Query url to pull our institution data
